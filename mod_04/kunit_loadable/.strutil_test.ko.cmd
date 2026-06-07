@@ -1,0 +1,1 @@
+savedcmd_strutil_test.ko := ld -r -m elf_x86_64 --fatal-warnings -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /usr/src/linux-7.0.3/scripts/module.lds -o strutil_test.ko strutil_test.o strutil_test.mod.o .module-common.o
