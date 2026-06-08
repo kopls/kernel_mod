@@ -1,0 +1,31 @@
+KERNEL_DIR = /lib/modules/$(shell uname -r)/build
+PWD = $(shell pwd)
+
+DRV_NAME = kernel_stack
+
+.PHONY : clean build run remove intall uninstall
+
+build :
+	$(MAKE) -C $(KERNEL_DIR) M=$(PWD) modules
+
+clean :
+	$(MAKE) -C $(KERNEL_DIR) M=$(PWD) clean
+
+run :
+	sudo insmode $(PWD)/$(DRV_NAME).ko
+
+remove :
+	sudo rmmod $(DRV_NAME).ko
+
+install :
+	cp $(DRV_NAME).ko /lib/modules/$(shell uname -r)
+	depmod -a
+	modprobe $(DRV_NAME)
+
+uninstall :
+	modprobe -r $(DRV_NAME)
+	rm /lib/modules/$(shell uname -r)/$(DRV_NAME).ko
+	depmod -a
+
+
+
