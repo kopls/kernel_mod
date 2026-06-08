@@ -1,6 +1,8 @@
 #include <linux/slab.h>
 #include <linux/list.h>
-#include <linux/errono.h>
+#include <linux/errno.h>
+
+#include "stack.h"
 
 struct stack_entry
 {
@@ -68,7 +70,7 @@ int stack_pop(struct stack *st, int *value)
     {
         if (stack_is_empty(st))
         {
-            rc = EMPTY_STACK;
+            rc = STACK_EMPTY;
         }
         else
         {

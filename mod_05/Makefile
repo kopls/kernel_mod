@@ -12,7 +12,7 @@ clean :
 	$(MAKE) -C $(KERNEL_DIR) M=$(PWD) clean
 
 run :
-	sudo insmode $(PWD)/$(DRV_NAME).ko
+	sudo insmod $(PWD)/$(DRV_NAME).ko
 
 remove :
 	sudo rmmod $(DRV_NAME).ko

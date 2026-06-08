@@ -11,7 +11,7 @@ struct kernel_stack
     struct stack stack;
     struct kobject *kobj;
     struct mutex lock;
-}
+};
 
 int init_sysfs(struct kernel_stack *ks);
 int exit_sysfs(struct kernel_stack *ks);
