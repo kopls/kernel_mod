@@ -7,7 +7,7 @@
 
 static struct kernel_stack ks;
 
-static int __init my_module_init() 
+static int __init my_module_init(void) 
 {
     int rc = 0;
 
@@ -18,7 +18,7 @@ static int __init my_module_init()
     }
     else
     {
-        rc = sysfs_init(&ks);
+        rc = init_sysfs(&ks);
         if (!rc)
         {
             pr_info("Stack module was install!\n");
@@ -28,7 +28,7 @@ static int __init my_module_init()
     return rc;
 }
 
-static void __exit my_module_exit() 
+static void __exit my_module_exit(void) 
 {
     int rc = 0;
 
@@ -52,5 +52,5 @@ module_exit(my_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Me");
-MODULE_DESC("Kernel stack module");
+MODULE_DESCRIPTION("Kernel stack module");
 MODULE_VERSION("1337.0");

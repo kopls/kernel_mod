@@ -62,7 +62,7 @@ static ssize_t pop_show(struct kobject *kobj,
         rc = stack_pop(&global_ks->stack, &num);
         if (rc)
         {
-            pr_err("Err show pop\n");
+            pr_err("Nothing to pop\n");
         }
         else
         {
@@ -92,7 +92,7 @@ static ssize_t peek_show(struct kobject *kobj,
         rc = stack_peek(&global_ks->stack, &num);
         if (rc)
         {
-            pr_err("Err in peek\n");
+            pr_err("Nothing in stack\n");
         }
         else
         {
@@ -124,7 +124,7 @@ static ssize_t size_show(struct kobject *kobj,
         }
         else
         {
-            return sysfs_emit(buf, "%d\n", size);
+            return sysfs_emit(buf, "%lu\n", size);
         }
     }
 
@@ -200,7 +200,7 @@ static ssize_t clear_store(struct kobject *kobj,
 }
 
 static struct kobj_attribute push_attr =
-              __ATTR(push, 0222, NULL, push_store);
+              __ATTR(push, 0220, NULL, push_store);
 
 static struct kobj_attribute pop_attr =
               __ATTR(pop, 0444, pop_show, NULL);
@@ -215,7 +215,7 @@ static struct kobj_attribute is_empty_attr =
               __ATTR(is_empty, 0444, is_empty_show, NULL);
 
 static struct kobj_attribute clear_attr =
-              __ATTR(clear, 0222, NULL, clear_store);
+              __ATTR(clear, 0220, NULL, clear_store);
 
 
 
@@ -259,7 +259,7 @@ int init_sysfs(struct kernel_stack *ks)
             {
                 pr_err("Err create group\n");
                 kobject_put(ks->kobj);
-                ks->obj = NULL;
+                ks->kobj = NULL;
                 global_ks = NULL;
             }
         }
@@ -279,7 +279,7 @@ int exit_sysfs(struct kernel_stack *ks)
     {
         sysfs_remove_group(ks->kobj, &stack_group);
         kobject_put(ks->kobj);
-        ks->obj = NULL;
+        ks->kobj = NULL;
         global_ks = NULL;
     }
 
