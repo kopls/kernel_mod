@@ -1,0 +1,14 @@
+#ifndef ERRORS_H
+#define ERRORS_H
+
+enum
+{
+    ERR_OK = 0,
+    ERR_ALLOCATE_META,
+    ERR_ALLOCATE_ALLOCATOR,
+    ERR_ALLOCATE_BITMAP,
+    ERR_ARGS,
+    ERR_ALLOCATION_IN_ALLOCATOR,
+};
+
+#endif
