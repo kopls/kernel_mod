@@ -1,0 +1,7 @@
+obj-m += symbolic_device.o
+
+kernel_sync_demo-y := src/main.o \
+                src/params.o \
+
+ ccflags-y := -I$(src)/inc \
+              -Wall -Werror
