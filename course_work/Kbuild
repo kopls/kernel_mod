@@ -1,7 +1,8 @@
 obj-m += my_device.o
 
 my_device-y := src/main.o \
-                src/params.o \
+               src/device_ops.o \
+               src/proc.o \
 
  ccflags-y := -I$(src)/inc \
               -Wall -Werror

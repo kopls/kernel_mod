@@ -3,6 +3,10 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/cdev.h>
+#include <linux/device.h>
+
+#include "device_ops.h"
+#include "proc.h"
 
 #define DEVICE_NAME "my_device"
 #define CLASS_NAME "my_device_class"
@@ -11,10 +15,6 @@ static dev_t dev_num;
 static struct cdev my_cdev;
 static struct class *my_class;
 static struct device *my_device;
-
-static const struct file_operations my_fops = {
-    .owner = THIS_MODULE,
-};
 
 static int __init my_device_init(void)
 {
@@ -47,13 +47,7 @@ static int __init my_device_init(void)
         goto delete_cdev;
     }
 
-    my_device = device_create(
-        my_class,
-        NULL,
-        dev_num,
-        NULL,
-        DEVICE_NAME
-    );
+    my_device = device_create(my_class, NULL, dev_num, NULL, DEVICE_NAME);
 
     if (IS_ERR(my_device))
     {
@@ -64,7 +58,17 @@ static int __init my_device_init(void)
 
     pr_info("loaded\n");
 
+    rc = my_proc_init();
+    if (rc < 0)
+    {
+        pr_err("failed to create proc entry\n");
+        goto destroy_device;
+    }
+
     return 0;
+
+destroy_device:
+    device_destroy(my_class, dev_num);
 
 destroy_class:
     class_destroy(my_class);
@@ -81,6 +85,7 @@ unregister_region:
 
 static void __exit my_device_exit(void)
 {
+    my_proc_exit();
     device_destroy(my_class, dev_num);
     class_destroy(my_class);
 
