@@ -1,7 +1,7 @@
 KERNEL_DIR = /lib/modules/$(shell uname -r)/build
 PWD = $(shell pwd)
 
-DRV_NAME = symbolic_device
+DRV_NAME = my_device
 
 .PHONY: clean install uninstall build run remove
 
