@@ -1,5 +1,6 @@
 #include "params.h"
 
+/*
 static int num_threads_set(const char *val, const struct kernel_param *kp)
 {
     int rc = 0;
@@ -311,3 +312,4 @@ module_param_cb(run, &run_ops, NULL, 0200);
 module_param_cb(result, &result_ops, NULL, 0400);
 module_param_cb(stats, &stats_ops, NULL, 0400);
 module_param_cb(reset, &reset_ops, NULL, 0200);
+*/

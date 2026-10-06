@@ -1,6 +1,6 @@
-obj-m += symbolic_device.o
+obj-m += my_device.o
 
-kernel_sync_demo-y := src/main.o \
+my_device-y := src/main.o \
                 src/params.o \
 
  ccflags-y := -I$(src)/inc \
